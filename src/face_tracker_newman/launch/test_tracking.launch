@@ -1,0 +1,22 @@
+<launch>
+
+<!--  Dla testa trekinga lica intel d435 -->
+
+
+    <arg name="model" />
+	
+	<arg name="gui" default="true" />
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch"/> 
+	<param name="robot_description" textfile="$(find inmoov_description)/robots/inmoov.urdf" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find inmoov_description)/urdf.rviz" required="true" />
+   
+
+     
+     <rosparam file="$(find face_tracker_newman)/config/track.yaml" command="load"/>
+     <node name="face_tracker" pkg="face_tracker_newman" type="face_tracker_node" output="screen" />
+     <rosparam file="$(find face_tracker_control_newman)/config/servo_param.yaml" command="load"/>
+     <node name="face_controller" pkg="face_tracker_control_newman" type="face_tracker_controller" output="screen" />
+     
+     <node name="realsense2_camera" pkg="realsense2_camera" type="realsense2_camera" output="screen" />
+</launch>

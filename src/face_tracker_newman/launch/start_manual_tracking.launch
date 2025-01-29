@@ -1,0 +1,21 @@
+<launch>
+
+<!--  Dla zapuska trekinga lica na glavnom computere huzno sdelat sledueuscee: -->
+<!--  ssh ubuntu@192.168.1.132 -->
+<!--  pasword 123456789 -->
+<!--  rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200 -->
+<!--  roslaunch raspicam_node camerav2_1280x960.launch-->
+
+        <arg name="model" />
+	
+	<arg name="gui" default="true" />
+	<param name="robot_description" textfile="$(find inmoov_description)/robots/inmoov.urdf" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find inmoov_description)/urdf.rviz" required="true" />
+
+     <rosparam file="$(find face_tracker_newman)/config/track.yaml" command="load"/>
+     <node name="face_tracker" pkg="face_tracker_newman" type="face_tracker_node" output="screen" />
+     <rosparam file="$(find face_tracker_control_newman)/config/servo_param.yaml" command="load"/>
+     <node name="face_controller" pkg="face_tracker_control_newman" type="face_tracker_controller" output="screen" />
+
+</launch>

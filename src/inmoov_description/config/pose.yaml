@@ -1,0 +1,11 @@
+  zeros:
+    l_wrist_roll_joint:    0.55
+    r_wrist_roll_joint:    -0.55
+    l_shoulder_out_joint:  0.09
+    r_shoulder_out_joint:  -0.09
+    l_shoulder_lift_joint: 0.01
+    r_shoulder_lift_joint: 0.01
+    l_elbow_flex_joint:    -0.26
+    r_elbow_flex_joint:    -0.26
+    
+    
